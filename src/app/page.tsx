@@ -11,16 +11,26 @@ import WorkSection from "@/components/WorkSection";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-const page = () => {
-  const [mount, setMount] = useState(false);
+const Page = () => {
+  // State to manage mounting status
+  const [mount, setMount] = useState<boolean>(false);
+  
+  // Accessing the setTheme function from next-themes
   const { setTheme } = useTheme();
+  
+  // Effect hook to set the theme to dark when the component mounts
   useEffect(() => {
+   setTimeout(()=>{
     setTheme("dark");
     setMount(true);
-  },[]);
+   },2000)
+  }, []);
+
+  // If not mounted, show the loader
   if (!mount) {
     return <Loader />;
   }
+
   return (
     <>
       <NavBar />
@@ -35,4 +45,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

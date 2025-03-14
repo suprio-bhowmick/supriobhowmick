@@ -1,6 +1,6 @@
 import { images } from "@/lib/assets";
 import {  faReact } from "@fortawesome/free-brands-svg-icons";
-import { faCheckSquare, faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import {  faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {  faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";

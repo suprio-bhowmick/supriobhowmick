@@ -30,7 +30,7 @@ const ContactSection = () => {
           <div className="text-left">
             <h5 className="text-lg">Contact Us</h5>
             <h2 className="text-3xl font-semibold">
-              Need help? Don not hesitate to drop me a text.
+              Need help? Do not hesitate to drop me a text.
             </h2>
           </div>
           <form action="" method="post">

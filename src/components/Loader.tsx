@@ -2,16 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-
-const colors = [
-  "text-red-400",
-  "text-blue-400",
-  "text-green-400",
-  "text-yellow-400",
-  "text-purple-400",
-  "text-pink-400",
-];
-
 const Loader = () => {
   const text = "SUPRIO";
   const [activeIndex, setActiveIndex] = useState(0);
@@ -33,7 +23,7 @@ const Loader = () => {
               index === activeIndex ? 'text-blue-400' : ""
             }`}
             animate={{ opacity: [1, 1, 1] }}
-            transition={{ duration: 0.5, repeat: Infinity }}
+            transition={{ duration: 0.4, repeat: Infinity }}
           >
             {char}
           </motion.span>

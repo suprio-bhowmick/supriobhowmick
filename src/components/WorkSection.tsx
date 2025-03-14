@@ -23,7 +23,7 @@ const WorkSection = () => {
       description:
         "Build single page own portfolio fully responsible website using Next Js and Tailwind CSS as design with dark & light theme features",
       techs: ["Next Js", "Tailwind CSS"],
-      github: "https://github.com/suprio-bhowmick/portfolio1",
+      github: "https://github.com/suprio-bhowmick/supriobhowmick",
       versal: "https://supriobhowmick.vercel.app/",
       image: images.project2.src,
     },
