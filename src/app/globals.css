@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@layer base {
+  * {
+    font-family: "Outfit", sans-serif; /* Apply to all elements */
+  }
+  .bg-dark {
+    background: #1a1f28;
+  }
+  .my-container {
+    @apply container mx-auto px-5 md:px-10 lg:px-20 py-10;
+  }
+  .row {
+    @apply flex flex-col lg:flex-row  gap-10 md:gap-20;
+  }
+  .form-input {
+    @apply outline-none py-3 px-7 w-full border rounded-full border-gray-600;
+  }
+  .label {
+    @apply block text-sm font-medium text-gray-500 mb-2 ml-5;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+.bg-light {
+  background: #ffffff;
+}
+.timeline::after {
+  content: " ";
+  width: 20px;
+  display: block;
+  height: 14%;
+  top: -5px;
+  left: -15px;
+  position: absolute;
+  z-index: 1;
+}
+.timeline::before {
+  content: " ";
+  width: 20px;
+  display: block;
+  height: 15%;
+  bottom: 0px;
+  left: -15px;
+  position: absolute;
+  z-index: 1;
+}
+
+.timeline2::after {
+  content: " ";
+  width: 20px;
+  display: block;
+  /* height: 80px; */
+  top: -5px;
+  right: -15px;
+  position: absolute;
+  z-index: 1;
+}
+.timeline2::before {
+  content: " ";
+  width: 20px;
+  display: block;
+  /* height: 120px; */
+  bottom: 0px;
+  right: -15px;
+  position: absolute;
+  z-index: 1;
+}
