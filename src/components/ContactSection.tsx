@@ -143,7 +143,7 @@ const ContactSection = () => {
             >
               <FontAwesomeIcon icon={contact.icon} className="text-3xl" />
               <div className="mt-3">
-                <h2 className="text-xl font-medium ">{contact.content}</h2>
+                <h2 className="text-xl font-medium break-words">{contact.content}</h2>
                 <p>{contact.name}</p>
               </div>
             </div>
