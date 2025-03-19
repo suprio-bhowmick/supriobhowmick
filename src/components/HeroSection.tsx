@@ -9,13 +9,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Image as SanityImage } from "sanity";
 
 interface HeroData {
   name: string;
   bio: string;
   phone: string;
   email: string;
-  heroImage: any;
+  heroImage: SanityImage;
 }
 
 const HeroSection = () => {

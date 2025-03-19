@@ -7,6 +7,8 @@ import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { client } from "@/sanity/lib/client";
+import { Image as SanityImage } from "sanity";
+import { urlFor } from "@/sanity/lib/image";
 
 interface Project {
   title: string;
@@ -14,7 +16,7 @@ interface Project {
   techs: string[];
   github: string;
   versal: string;
-  image: any;
+  image: SanityImage;
 }
 
 const WorkSection = () => {
@@ -62,7 +64,7 @@ const WorkSection = () => {
                     <div className="w-full h-56">
                       {project.image ? (
                         <Image
-                          src={project.image}
+                          src={urlFor(project?.image).url()}
                           alt="Project"
                           width={850}
                           height={450}

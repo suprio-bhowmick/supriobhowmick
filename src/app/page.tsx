@@ -14,16 +14,16 @@ import { useEffect, useState } from "react";
 const Page = () => {
   // State to manage mounting status
   const [mount, setMount] = useState<boolean>(false);
-  
+
   // Accessing the setTheme function from next-themes
   const { setTheme } = useTheme();
-  
+
   // Effect hook to set the theme to dark when the component mounts
   useEffect(() => {
-   setTimeout(()=>{
-    setTheme("dark");
-    setMount(true);
-   },0)
+    setTimeout(() => {
+      setTheme("dark");
+      setMount(true);
+    }, 0);
   }, []);
 
   // If not mounted, show the loader

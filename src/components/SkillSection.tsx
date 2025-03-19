@@ -3,9 +3,10 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+import { Image as SanityImage  } from "sanity";
 
 interface Skill {
-  icon: any;
+  icon: SanityImage;
   name: string;
 }
 const SkillSkeleton = () => {

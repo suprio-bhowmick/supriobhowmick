@@ -8,13 +8,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Image as SanityImage } from "sanity";
 
 interface AboutData {
   title: string;
   description1: string;
   description2: string;
   resume: string;
-  image: any;
+  image: SanityImage;
 }
 
 const AboutSection = () => {
