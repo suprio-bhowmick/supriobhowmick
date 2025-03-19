@@ -1,66 +1,41 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import {
   faBriefcase,
   faGraduationCap,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from "next-themes";
-import React from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { client } from "@/sanity/lib/client";
+
+type Qualification = {
+  year: string;
+  title: string;
+  institution: string;
+  description: string;
+  type: string;
+};
 
 const QualificationSection = () => {
   const { theme } = useTheme();
-  const timelineData = [
-    {
-      year: "March, 2025",
-      title: "MERN Stuck Course",
-      institution: "Webskitters Academy",
-      description:
-        "Learned C, HTML, CSS, Bootstrap, Advance JavaScript, React Js, Next Js",
-    },
-    {
-      year: "2023",
-      title: "Bachelor's Degree",
-      institution: "University of Culcutta",
-      description:
-        "Graduated with a Bachelor of Commerce degree and obtained marks is 80.00%",
-    },
-    {
-      year: "2020",
-      title: "Higher Secondary",
-      institution: "WBCHSE, West Bengal",
-      description:
-        "Completed Higher Secondary education on Commerce and obtained marks is 88.00%",
-    },
-    {
-      year: "2018",
-      title: "Madhyamik",
-      institution: "WBBSE, West Bengal",
-      description:
-        "Completed Madhyamik (10th Board) examination and obtained marks is 67.85%",
-    },
-  ];
-  const workExperience = [
-    {
-      title: "Corporate Training as React Js Developer",
-      year: "March, 2025",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt nesciunt nisi ducimus delectus reprehenderit neque possimus voluptatibus excepturi harum aliquid.",
-      institution: "Webskitters Technology",
-    },
-    {
-      title: "Corporate Training as React Js Developer",
-      year: "March, 2025",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt nesciunt nisi ducimus delectus reprehenderit neque possimus voluptatibus excepturi harum aliquid.",
-      institution: "Webskitters Technology",
-    },
-    {
-      title: "Corporate Training as React Js Developer",
-      year: "March, 2025",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt nesciunt nisi ducimus delectus reprehenderit neque possimus voluptatibus excepturi harum aliquid.",
-      institution: "Webskitters Technology",
-    },
-  ];
+  const [qualification, setQualification] = useState<Qualification[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await client.fetch(
+        `*[_type == "qualification"]`
+      );
+      setQualification(data);
+      setLoading(false);
+      
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="my-container my-10">
       <div className="text-center mb-10">
@@ -70,43 +45,49 @@ const QualificationSection = () => {
         </h2>
       </div>
       <div className="row">
-        <div className="w-full lg:w-1/2 relative ">
+        {/* Educational Background */}
+        <div className="w-full lg:w-1/2 relative">
           <h4 className="text-2xl text-left font-medium">
             Educational Background
           </h4>
           <div
-            className={`relative border-l-4 pl-6 timeline  ${
-              theme === "dark"
-                ? "border-gray-50 after:bg-[#121212] before:bg-[#121212]"
-                : "border-gray-900 after:bg-white  before:bg-white"
-            }  rounded-lg p-5 `}
+           className={`relative border-l-4 pl-6 timeline  ${
+            theme === "dark"
+              ? "border-gray-50 after:bg-[#121212] before:bg-[#121212]"
+              : "border-gray-900 after:bg-white  before:bg-white"
+          }  rounded-lg p-5 `}
           >
-            {timelineData.map((item, index) => (
-              <div key={index} className="mb-8 relative ">
-                {/* Dot with FontAwesome Icon */}
-                <div className="absolute -left-12 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-blue-400  rounded-full shadow-md z-10">
-                  <FontAwesomeIcon icon={faGraduationCap} className="text-white" size="lg" />
-                </div>
-
-                {/* Timeline Content */}
-                <div
-                  className={`${
-                    theme === "dark"
-                      ? "bg-dark text-white"
-                      : "bg-light text-black"
-                  } shadow-md rounded-lg p-5`}
-                >
-                  <h3 className="text-xl font-semibold ">{item.title}</h3>
-                  <p className="text-gray-400">{item.institution}</p>
-                  <span className="text-sm text-gray-400 font-semibold">
-                    {item.year}
-                  </span>
-                  <p className="text-gray-500 mt-2">{item.description}</p>
-                </div>
-              </div>
-            ))}
+            {loading
+              ? [...Array(3)].map((_, index) => (
+                  <Skeleton key={index} height={100} className="mb-5" />
+                ))
+              : qualification.filter(elem => elem.type === 'education').map((item, index) => (
+                  <div key={index} className="mb-8 relative">
+                    {/* Dot with FontAwesome Icon */}
+                    <div className="absolute -left-12 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-blue-400 rounded-full shadow-md z-10">
+                      <FontAwesomeIcon
+                        icon={faGraduationCap}
+                        className="text-white"
+                        size="lg"
+                      />
+                    </div>
+                    {/* Timeline Content */}
+                    <div
+                      className={`shadow-md rounded-lg p-5 ${theme === "dark" ? "bg-dark text-white" : "bg-light text-black"}`}
+                    >
+                      <h3 className="text-xl font-semibold">{item.title}</h3>
+                      <p className="text-gray-400">{item.institution}</p>
+                      <span className="text-sm text-gray-400 font-semibold">
+                        {item.year}
+                      </span>
+                      <p className="text-gray-500 mt-2">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
+
+        {/* Work Experience */}
         <div className="w-full lg:w-1/2 relative">
           <h4 className="text-2xl text-right font-medium">Work Experience</h4>
           <div
@@ -116,30 +97,33 @@ const QualificationSection = () => {
                 : "border-gray-900 after:bg-white  before:bg-white"
             } rounded-lg p-5 before:h-[20%] after:h-[15%]`}
           >
-            {workExperience.map((item, index) => (
-              <div key={index} className="mb-8 relative ">
-                {/* Dot with FontAwesome Icon */}
-                <div className="absolute -right-12 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-blue-400  rounded-full shadow-md z-10">
-                  <FontAwesomeIcon icon={faBriefcase} className="text-white" size="lg" />
-                </div>
-
-                {/* Timeline Content */}
-                <div
-                  className={`${
-                    theme === "dark"
-                      ? "bg-dark text-white"
-                      : "bg-light text-black"
-                  } shadow-md rounded-lg p-5`}
-                >
-                <h3 className="text-xl font-semibold ">{item.title}</h3>
-                  <p className="text-gray-400">{item.institution}</p>
-                  <span className="text-sm text-gray-400 font-semibold">
-                    {item.year}
-                  </span>
-                  <p className="text-gray-500 mt-2">{item.description}</p>
-                </div>
-              </div>
-            ))}
+            {loading
+              ? [...Array(3)].map((_, index) => (
+                  <Skeleton key={index} height={100} className="mb-5" />
+                ))
+              : qualification.filter(elem => elem.type === 'work').map((item, index) => (
+                  <div key={index} className="mb-8 relative">
+                    {/* Dot with FontAwesome Icon */}
+                    <div className="absolute -right-12 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-blue-400 rounded-full shadow-md z-10">
+                      <FontAwesomeIcon
+                        icon={faBriefcase}
+                        className="text-white"
+                        size="lg"
+                      />
+                    </div>
+                    {/* Timeline Content */}
+                    <div
+                      className={`shadow-md rounded-lg p-5 ${theme === "dark" ? "bg-dark text-white" : "bg-light text-black"}`}
+                    >
+                      <h3 className="text-xl font-semibold">{item.title}</h3>
+                      <p className="text-gray-400">{item.institution}</p>
+                      <span className="text-sm text-gray-400 font-semibold">
+                        {item.year}
+                      </span>
+                      <p className="text-gray-500 mt-2">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
       </div>

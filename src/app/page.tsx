@@ -23,7 +23,7 @@ const Page = () => {
    setTimeout(()=>{
     setTheme("dark");
     setMount(true);
-   },2000)
+   },0)
   }, []);
 
   // If not mounted, show the loader

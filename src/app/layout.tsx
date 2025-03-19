@@ -3,6 +3,8 @@ import Script from "next/script";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { SanityLive } from "@/sanity/lib/live";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -52,18 +54,17 @@ export default function RootLayout({
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Suprio Bhowmick",
-    "jobTitle": "React.js Developer",
-    "url": "https://supriobhowmick.vercel.app",
-    "image": "https://supriobhowmick.vercel.app/images/profile.jpg",
-    "description": "React.js developer skilled in building modern web applications.",
-    "sameAs": [
-      "https://github.com/suprio-bhowmick",
-    ],
-    "worksFor": {
+    name: "Suprio Bhowmick",
+    jobTitle: "React.js Developer",
+    url: "https://supriobhowmick.vercel.app",
+    image: "https://supriobhowmick.vercel.app/images/profile.jpg",
+    description:
+      "React.js developer skilled in building modern web applications.",
+    sameAs: ["https://github.com/suprio-bhowmick"],
+    worksFor: {
       "@type": "Organization",
-      "name": "Freelancer"
-    }
+      name: "Freelancer",
+    },
   };
 
   return (
@@ -77,7 +78,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${outfit.className} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <SkeletonTheme baseColor="#7a7a7a" highlightColor="#4e4e4e">
+            {children}
+            <SanityLive />
+          </SkeletonTheme>
+        </Providers>
       </body>
     </html>
   );
